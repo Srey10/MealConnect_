@@ -17,8 +17,6 @@ import partnershipRoutes from './routes/partnershipRoutes.js';
 import donationRoutes from './routes/donationRoutes.js';
 
 dotenv.config();
-const app = express();
-
 // Connect to database
 connectDB();
 
@@ -29,8 +27,9 @@ const app = express();
 
 // Allow your deployed frontend
 const allowedOrigins = [
-  'https://mealconnect-ngoconnect.onrender.com', // your frontend URL
-  'http://localhost:5173' // optional: local frontend for dev
+  'https://mealconnect-ngoconnect.onrender.com',
+  'https://mealconnect-ngoconnect.onrender.com/api',// your frontend URL
+  'http://localhost:3000' // optional: local frontend for dev
 ];
 
 app.use(cors({
