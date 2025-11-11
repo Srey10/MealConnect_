@@ -17,40 +17,46 @@ import partnershipRoutes from './routes/partnershipRoutes.js';
 import donationRoutes from './routes/donationRoutes.js';
 
 dotenv.config();
-
 const app = express();
 
-// Database
+// Connect to database
 connectDB();
 
-
+// ----------------- CORS FIX -----------------
 const allowedOrigins = [
-  'http://localhost:3000',                     // for local dev
-  'https://mealconnect-ngo.onrender.com'      // deployed frontend
+  'http://localhost:3000',
+  'https://mealconnect-ngo.onrender.com'
 ];
 
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin) return callback(null, true); // allow Postman or server-to-server requests
+    if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     } else {
-      return callback(new Error('Not allowed by CORS'), false);
+      return callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
 }));
 
-// Handle preflight OPTIONS requests globally
+// Handle preflight requests
 app.options('*', cors({
   origin: allowedOrigins,
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
 }));
-// API Routes
+// ---------------------------------------------
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'));
+
+// API Routes (ensure all start with /api)
 app.use('/api/auth', authRoutes);
 app.use('/api/restaurants', restaurantRoutes);
 app.use('/api/menu-items', menuItemRoutes);
@@ -61,19 +67,16 @@ app.use('/api/user', userRoutes);
 app.use('/api/partnerships', partnershipRoutes);
 app.use('/api/donations', donationRoutes);
 
-// Health
+// Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Static uploads (for volunteer proofs)
+// Static uploads
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
