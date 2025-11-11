@@ -23,32 +23,32 @@ const app = express();
 // Database
 connectDB();
 
+
 const allowedOrigins = [
-  'http://localhost:3000',
-  'https://mealconnect-ngo.onrender.com'
+  'http://localhost:3000',                     // for local dev
+  'https://mealconnect-ngo.onrender.com'      // deployed frontend
 ];
 
-// Apply CORS to all routes
 app.use(cors({
   origin: function(origin, callback) {
-    if(!origin) return callback(null, true); // allow Postman or server-to-server
-    if(allowedOrigins.includes(origin)) {
+    if (!origin) return callback(null, true); // allow Postman or server-to-server requests
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     } else {
       return callback(new Error('Not allowed by CORS'), false);
     }
   },
   credentials: true,
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Handle preflight OPTIONS requests globally
 app.options('*', cors({
   origin: allowedOrigins,
   credentials: true,
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // API Routes
