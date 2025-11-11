@@ -23,24 +23,28 @@ const app = express();
 // Database
 connectDB();
 
-// Middlewares
+
+
 const allowedOrigins = [
-  'http://localhost:3000', // for local development
-  'https://mealconnect-ngo.onrender.com' // your deployed frontend
+  'http://localhost:3000', 
+  'https://mealconnect-ngo.onrender.com'
 ];
 
 app.use(cors({
-  origin: function(origin, callback){
-    // allow requests with no origin (like mobile apps or Postman)
-    if(!origin) return callback(null, true);
+  origin: function(origin, callback) {
+    if(!origin) return callback(null, true); // allow server-to-server or Postman
     if(allowedOrigins.indexOf(origin) === -1){
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+      return callback(new Error('Not allowed by CORS'), false);
     }
     return callback(null, true);
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Make sure this is **before your routes**
+
 
 
 // API Routes
