@@ -23,33 +23,27 @@ const app = express();
 connectDB();
 
 // ----------------- CORS FIX -----------------
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+// Allow your deployed frontend
 const allowedOrigins = [
-  'http://localhost:3000',
-  'https://mealconnect-ngo.onrender.com'
+  'https://mealconnect-ngoconnect.onrender.com', // your frontend URL
+  'http://localhost:5173' // optional: local frontend for dev
 ];
 
 app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true); // allow non-browser tools
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = 'The CORS policy for this site does not allow access from the specified origin.';
+      return callback(new Error(msg), false);
     }
+    return callback(null, true);
   },
-  credentials: true,
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization']
+  credentials: true // if you use cookies
 }));
-
-// Handle preflight requests
-app.options('*', cors({
-  origin: allowedOrigins,
-  credentials: true,
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization']
-}));
-// ---------------------------------------------
 
 // Middleware
 app.use(express.json());
