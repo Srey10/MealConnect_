@@ -36,4 +36,4 @@ They receive live tasks, track routes, and update statuses — ensuring timely a
 To build a connected ecosystem where compassion meets technology, turning every extra bite into a step toward ending hunger and food waste.
 
 ##  Built Using the MERN Stack
-
+MongoDB for data storage, Express and Node.js for backend APIs, and React for a responsive frontend interface.
