@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ShoppingCart, User, Star, Package, Clock, MapPin, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, User, Star, Package, Clock, MapPin, Plus, Minus, Menu as MenuIcon, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../styles/FoodDeliveryUI.css';
 import '../styles/Menu.css';
@@ -13,6 +13,7 @@ export default function FoodDeliveryUI() {
   // Donation-based food items (now from live API)
   const [foodItems, setFoodItems] = useState([]);
   const [cart, setCart] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const loadMenuItems = async () => {
@@ -191,40 +192,25 @@ export default function FoodDeliveryUI() {
       {/* Header */}
       <header className="header">
         <div className="header-container">
-          <Link to="/" className="logo-section">
-            <div className="logo-icon">🍕</div>
-            <span className="logo-text">MealConnect</span>
-            <span className="tagline">— NGO x Community Kitchens</span>
-          </Link>
+          <div className="header-left">
+            <button className="menu-toggle" onClick={() => setIsSidebarOpen(true)}>
+              <MenuIcon size={24} />
+            </button>
+            <Link to="/" className="logo-section">
+              <span className="logo-text">MealConnect</span>
+            </Link>
+          </div>
 
-          <nav className="nav">
-            <a href="#home">Home</a>
-            <Link to="/about">About Us</Link>
-            <Link to="/menu" className="menu-link">Menu</Link>
-            <Link to="/partners">Partners</Link>
-            <Link to="/volunteer">Volunteer</Link>
-            <Link to="/donate" className="donate-link">Donate</Link>
-            <Link to="/contact">Contact</Link>
-            {!user ? (
-              <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
-              </>
-            ) : (
-              <Link to="/profile">Profile</Link>
-            )}
-          </nav>
-
-          <div className="header-icons">
-            <Link to="/cart" className="icon-button" style={{ position: 'relative' }}>
-              <ShoppingCart size={20} />
+          <div className="header-right">
+            <Link to="/cart" className="icon-button" style={{ position: 'relative', marginRight: '1rem', color: '#a34a1a' }}>
+              <ShoppingCart size={24} />
               {cart.length > 0 && (
                 <span style={{
                   position: 'absolute',
                   top: '-8px',
                   right: '-8px',
-                  background: '#fb923c',
-                  color: 'white',
+                  background: '#fbcf08',
+                  color: '#a34a1a',
                   borderRadius: '50%',
                   width: '20px',
                   height: '20px',
@@ -238,65 +224,60 @@ export default function FoodDeliveryUI() {
                 </span>
               )}
             </Link>
-            <Link to={user ? "/profile" : "/login"} className="icon-button" title={user ? user.name : "Login"}>
-              <User size={20} />
-            </Link>
+            {!user ? (
+              <Link to="/login" className="btn-donate-now">Login</Link>
+            ) : (
+              <Link to="/profile" className="btn-donate-now">Profile</Link>
+            )}
           </div>
         </div>
       </header>
+
+      {/* Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>
+      )}
+
+      {/* Sidebar */}
+      <div className={`sidebar-menu ${isSidebarOpen ? 'open' : ''}`}>
+        <div className="sidebar-header">
+          <span className="logo-text">MealConnect</span>
+          <button className="close-sidebar" onClick={() => setIsSidebarOpen(false)}>
+            <X size={24} />
+          </button>
+        </div>
+        <nav className="sidebar-nav">
+          <a href="#home" onClick={() => setIsSidebarOpen(false)}>Home</a>
+          <Link to="/about" onClick={() => setIsSidebarOpen(false)}>About Us</Link>
+          <Link to="/menu" onClick={() => setIsSidebarOpen(false)}>Menu</Link>
+          <Link to="/partners" onClick={() => setIsSidebarOpen(false)}>Partners</Link>
+          <Link to="/volunteer" onClick={() => setIsSidebarOpen(false)}>Volunteer</Link>
+          <Link to="/donate" onClick={() => setIsSidebarOpen(false)}>Donate</Link>
+          <Link to="/contact" onClick={() => setIsSidebarOpen(false)}>Contact</Link>
+          {!user && <Link to="/register" onClick={() => setIsSidebarOpen(false)}>Register</Link>}
+        </nav>
+      </div>
 
       {/* Hero */}
       <section className="hero-section" id="home">
         <div className="hero-grid">
           <div className="hero-content">
             <h1>
-              Because <br />
-              <span className="highlight">every meal</span> should be for all
+              Because every meal <br />
+              should be <span className="highlight">for all</span>
             </h1>
-
+            <p className="hero-subtext">
+              Join a community dedicated to ending food waste and ensuring no neighbor goes hungry. Simple, joyful, and local.
+            </p>
             <div className="hero-actions">
-              <Link to="/donate" className="btn-primary">Donate / Support</Link>
-              <div className="stats-container">
-                <div className="stat-card">
-                  <div className="stat-number">50K+</div>
-                  <div className="stat-label">Meals Served</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-number">25</div>
-                  <div className="stat-label">Partner NGOs</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-number">200+</div>
-                  <div className="stat-label">Volunteers</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="category-grid">
-              <div className="category-card">
-                <div className="category-icon">🍛</div>
-                <div className="category-name">Community Meals</div>
-              </div>
-              <div className="category-card">
-                <div className="category-icon">🤝</div>
-                <div className="category-name">Partnerships</div>
-              </div>
-              <div className="category-card">
-                <div className="category-icon">🚚</div>
-                <div className="category-name">Food Drives</div>
-              </div>
-              <div className="category-card">
-                <div className="category-icon">🧑‍🍳</div>
-                <div className="category-name">Volunteer Kitchen</div>
-              </div>
+              <Link to="/register" className="btn-movement">Join the Movement</Link>
+              <Link to="/about" className="btn-learn">Learn More</Link>
             </div>
           </div>
 
-          <div className="hero-image">
-            <div className="image-placeholder">
-              <div className="main-icon">🛵</div>
-              <div className="floating-icon top-right">🍛</div>
-              <div className="floating-icon bottom-left">✨</div>
+          <div className="hero-image-new">
+            <div className="hero-image-wrapper">
+              <img src="/images/hero_kitchen_illustration.png" alt="People cooking together" />
             </div>
           </div>
         </div>

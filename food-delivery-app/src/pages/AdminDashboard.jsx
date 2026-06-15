@@ -6,10 +6,11 @@ import {
   TrendingUp, Clock, CheckCircle, XCircle, Edit, Trash2, Eye,
   RefreshCw, LogOut, BarChart3, Building2, FileText, Briefcase,
   Mail, Phone, MapPin, Calendar, User, CreditCard,
-  IndianRupeeIcon
+  IndianRupeeIcon, Shield
 } from 'lucide-react';
 import api from '../api';
 import '../styles/AdminDashboard.css';
+import '../styles/DashboardLayout.css';
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
@@ -179,32 +180,101 @@ export default function AdminDashboard() {
   };
 
   if (loading) {
-    return <div className="admin-loading">Loading dashboard...</div>;
+    return <div className="admin-loading" style={{ color: '#333' }}>Loading dashboard...</div>;
   }
 
   return (
-    <div className="admin-dashboard">
-      <div className="admin-header">
-        <div className="admin-header-left">
-          <h1>🛡️ Admin Dashboard</h1>
-          <p style={{ fontSize: '16px', color: '#718096', margin: 0 }}>
-            Welcome back, <strong style={{ color: '#667eea' }}>{user?.name}</strong> • Last updated: {new Date().toLocaleTimeString()}
-          </p>
+    <div className="dashboard-layout">
+      {/* Top Navigation */}
+      <nav className="dashboard-top-nav">
+        <div className="dashboard-nav-logo">
+          <Shield size={24} color="#f97316" />
+          MealConnect Admin
         </div>
-        <div className="admin-header-actions">
-          <button onClick={loadDashboardData} className="btn-refresh">
-            <RefreshCw size={18} />
-            Refresh Data
-          </button>
-          <button onClick={logout} className="btn-logout">
-            <LogOut size={18} />
+        <div className="dashboard-nav-menu">
+          <div className="dashboard-user-info">
+            Welcome, <strong>{user?.name}</strong>
+          </div>
+          <button onClick={logout} className="dashboard-logout-btn">
+            <LogOut size={16} />
             Logout
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Stats Cards */}
-      {stats && (
+      {/* Dashboard Body with Sidebar and Content */}
+      <div className="dashboard-body">
+        <aside className="dashboard-sidebar">
+          <div className="dashboard-sidebar-title">Menu</div>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'overview' ? 'active' : ''}`}
+            onClick={() => setActiveTab('overview')}
+          >
+            <BarChart3 size={18} />
+            Overview
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'restaurants' ? 'active' : ''}`}
+            onClick={() => setActiveTab('restaurants')}
+          >
+            <Store size={18} />
+            Restaurants ({restaurants.length})
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'users' ? 'active' : ''}`}
+            onClick={() => setActiveTab('users')}
+          >
+            <Users size={18} />
+            Users ({users.length})
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'pickups' ? 'active' : ''}`}
+            onClick={() => setActiveTab('pickups')}
+          >
+            <ShoppingCart size={18} />
+            Pickups ({pickups.length})
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'volunteers' ? 'active' : ''}`}
+            onClick={() => setActiveTab('volunteers')}
+          >
+            <Handshake size={18} />
+            Volunteers ({volunteers.length})
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'menu-items' ? 'active' : ''}`}
+            onClick={() => setActiveTab('menu-items')}
+          >
+            <Package size={18} />
+            Menu Items ({menuItems.length})
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'partnerships' ? 'active' : ''}`}
+            onClick={() => setActiveTab('partnerships')}
+          >
+            <Briefcase size={18} />
+            Partnerships ({partnerships.length})
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'donations' ? 'active' : ''}`}
+            onClick={() => setActiveTab('donations')}
+          >
+            <IndianRupee size={18} />
+            Donations ({donations.length})
+          </button>
+        </aside>
+
+        <main className="dashboard-content-area">
+          <div className="dashboard-header-simple">
+            <h1>Admin Dashboard</h1>
+            <button onClick={loadDashboardData} className="btn-refresh" style={{ background: 'white', border: '1px solid #e5e7eb' }}>
+              <RefreshCw size={16} />
+              Refresh Data
+            </button>
+          </div>
+
+          {/* Stats Cards */}
+          {stats && (
         <div className="admin-stats-grid">
           <div className="stat-card">
             <div className="stat-icon" style={{ background: 'white', color: '#667eea' }}>
@@ -296,66 +366,6 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
-
-      {/* Tabs */}
-      <div className="admin-tabs">
-        <button
-          className={activeTab === 'overview' ? 'active' : ''}
-          onClick={() => setActiveTab('overview')}
-        >
-          <BarChart3 size={18} />
-          Overview
-        </button>
-        <button
-          className={activeTab === 'restaurants' ? 'active' : ''}
-          onClick={() => setActiveTab('restaurants')}
-        >
-          <Store size={18} />
-          Restaurants ({restaurants.length})
-        </button>
-        <button
-          className={activeTab === 'users' ? 'active' : ''}
-          onClick={() => setActiveTab('users')}
-        >
-          <Users size={18} />
-          Users ({users.length})
-        </button>
-        <button
-          className={activeTab === 'pickups' ? 'active' : ''}
-          onClick={() => setActiveTab('pickups')}
-        >
-          <ShoppingCart size={18} />
-          Pickups ({pickups.length})
-        </button>
-        <button
-          className={activeTab === 'volunteers' ? 'active' : ''}
-          onClick={() => setActiveTab('volunteers')}
-        >
-          <Handshake size={18} />
-          Volunteers ({volunteers.length})
-        </button>
-        <button
-          className={activeTab === 'menu-items' ? 'active' : ''}
-          onClick={() => setActiveTab('menu-items')}
-        >
-          <Package size={18} />
-          Menu Items ({menuItems.length})
-        </button>
-        <button
-          className={activeTab === 'partnerships' ? 'active' : ''}
-          onClick={() => setActiveTab('partnerships')}
-        >
-          <Briefcase size={18} />
-          Partnerships ({partnerships.length})
-        </button>
-        <button
-          className={activeTab === 'donations' ? 'active' : ''}
-          onClick={() => setActiveTab('donations')}
-        >
-          <IndianRupee size={18} />
-          Donations ({donations.length})
-        </button>
-      </div>
 
       {/* Tab Content */}
       <div className="admin-content">
@@ -913,6 +923,8 @@ export default function AdminDashboard() {
             )}
           </div>
         )}
+      </div>
+        </main>
       </div>
     </div>
   );

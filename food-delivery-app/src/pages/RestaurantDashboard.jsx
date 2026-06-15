@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import { Plus, Edit2, Trash2, Save, X, Upload, Store, Package, Clock, Image as ImageIcon, CheckCircle, XCircle, Bell } from 'lucide-react';
+import { Plus, Edit2, Trash2, Save, X, Upload, Store, Package, Clock, Image as ImageIcon, CheckCircle, XCircle, Bell, LogOut, Shield } from 'lucide-react';
 import api from '../api';
 import '../styles/RestaurantDashboard.css';
+import '../styles/DashboardLayout.css';
 
 export default function RestaurantDashboard() {
   const { user, logout } = useAuth();
@@ -15,6 +16,7 @@ export default function RestaurantDashboard() {
   const [showMenuItemForm, setShowMenuItemForm] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [pickupRequests, setPickupRequests] = useState([]);
+  const [activeTab, setActiveTab] = useState('profile');
   
   const [restaurantForm, setRestaurantForm] = useState({
     name: '',
@@ -172,22 +174,62 @@ export default function RestaurantDashboard() {
   };
 
   if (loading) {
-    return <div className="dashboard-loading">Loading...</div>;
+    return <div className="dashboard-loading" style={{ color: '#333' }}>Loading...</div>;
   }
 
   return (
-    <div className="restaurant-dashboard">
-      <div className="dashboard-header">
-        <div>
-          <h1>🍽️ Restaurant Dashboard</h1>
-          <p>Welcome, {user?.name}</p>
+    <div className="dashboard-layout">
+      {/* Top Navigation */}
+      <nav className="dashboard-top-nav">
+        <div className="dashboard-nav-logo">
+          <Shield size={24} color="#f97316" />
+          MealConnect Restaurant
         </div>
-        <div className="header-actions">
-          <button onClick={logout} className="btn-secondary">Logout</button>
+        <div className="dashboard-nav-menu">
+          <div className="dashboard-user-info">
+            Welcome, <strong>{user?.name}</strong>
+          </div>
+          <button onClick={logout} className="dashboard-logout-btn">
+            <LogOut size={16} />
+            Logout
+          </button>
         </div>
-      </div>
+      </nav>
+
+      {/* Dashboard Body with Sidebar and Content */}
+      <div className="dashboard-body">
+        <aside className="dashboard-sidebar">
+          <div className="dashboard-sidebar-title">Menu</div>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'profile' ? 'active' : ''}`}
+            onClick={() => setActiveTab('profile')}
+          >
+            <Store size={18} />
+            Profile
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'menu' ? 'active' : ''}`}
+            onClick={() => setActiveTab('menu')}
+          >
+            <Package size={18} />
+            Menu Items
+          </button>
+          <button
+            className={`dashboard-sidebar-btn ${activeTab === 'pickups' ? 'active' : ''}`}
+            onClick={() => setActiveTab('pickups')}
+          >
+            <Bell size={18} />
+            Pickup Requests {pickupRequests.length > 0 && `(${pickupRequests.length})`}
+          </button>
+        </aside>
+
+        <main className="dashboard-content-area">
+          <div className="dashboard-header-simple">
+            <h1>Restaurant Dashboard</h1>
+          </div>
 
       {/* Restaurant Profile Section */}
+      {activeTab === 'profile' && (
       <div className="dashboard-section">
         <div className="section-header">
           <Store size={24} />
@@ -265,9 +307,10 @@ export default function RestaurantDashboard() {
           </div>
         ) : null}
       </div>
+      )}
 
       {/* Menu Items Section */}
-      {restaurant && (
+      {activeTab === 'menu' && restaurant && (
         <div className="dashboard-section">
           <div className="section-header">
             <Package size={24} />
@@ -429,7 +472,7 @@ export default function RestaurantDashboard() {
       )}
 
       {/* Pickup Requests Section */}
-      {restaurant && (
+      {activeTab === 'pickups' && restaurant && (
         <div className="dashboard-section">
           <div className="section-header">
             <Bell size={24} />
@@ -520,6 +563,8 @@ export default function RestaurantDashboard() {
           )}
         </div>
       )}
+        </main>
+      </div>
     </div>
   );
 }

@@ -1,14 +1,14 @@
 /* Donate page styles - Enhanced */
 
 :root {
-  --accent: #ff6b6b;
-  --accent-light: #ff8787;
-  --accent-dark: #ff5252;
+  --accent: #eb7a36;
+  --accent-light: #ffaa77;
+  --accent-dark: #a34a1a;
   --muted: #6b7280;
   --text-dark: #111827;
   --bg: #ffffff;
-  --bg-light: #f9fafb;
-  --bg-accent: #fff5f5;
+  --bg-light: #fff5eb;
+  --bg-accent: #fff5eb;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
@@ -17,7 +17,7 @@
 
 .donate-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 50%, #fff5f5 100%);
+  background: linear-gradient(135deg, #fff5eb 0%, #ffffff 50%, #fff5eb 100%);
   padding: 80px 24px;
   position: relative;
   overflow: hidden;

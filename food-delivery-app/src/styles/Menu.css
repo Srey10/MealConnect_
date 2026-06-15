@@ -1,6 +1,6 @@
 .menu-ecommerce-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fff7ed 0%, rgba(251, 146, 60, 0.05) 50%, rgba(124, 58, 237, 0.05) 100%);
+  background: linear-gradient(135deg, #fff5eb 0%, rgba(235, 122, 54, 0.05) 50%, rgba(163, 74, 26, 0.05) 100%);
   padding: 2rem 1.5rem;
   font-family: Inter, system-ui, -apple-system, sans-serif;
 }
@@ -22,7 +22,7 @@
 .menu-title {
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #7c3aed, #fb923c);
+  background: linear-gradient(135deg, #eb7a36, #a34a1a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -36,7 +36,7 @@
 }
 
 .menu-cart-button {
-  background: linear-gradient(135deg, #7c3aed, #fb923c);
+  background: linear-gradient(135deg, #eb7a36, #a34a1a);
   color: white;
   padding: 1rem 2rem;
   border-radius: 12px;
@@ -46,13 +46,13 @@
   gap: 0.75rem;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(235, 122, 54, 0.4);
   position: relative;
 }
 
 .menu-cart-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 35px -5px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 15px 35px -5px rgba(235, 122, 54, 0.5);
 }
 
 .cart-badge {
@@ -88,8 +88,8 @@
 }
 
 .search-input-wrapper:focus-within {
-  border-color: #7c3aed;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+  border-color: #eb7a36;
+  box-shadow: 0 4px 20px rgba(235, 122, 54, 0.2);
 }
 
 .search-icon {
@@ -157,12 +157,12 @@
 }
 
 .filter-button:hover {
-  border-color: #7c3aed;
-  color: #7c3aed;
+  border-color: #eb7a36;
+  color: #eb7a36;
 }
 
 .filter-button.active {
-  background: linear-gradient(135deg, #7c3aed, #fb923c);
+  background: linear-gradient(135deg, #eb7a36, #a34a1a);
   color: white;
   border-color: transparent;
 }
@@ -215,7 +215,7 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(124, 58, 237, 0.9);
+  background: rgba(235, 122, 54, 0.9);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -240,7 +240,7 @@
 
 .product-restaurant {
   font-size: 0.875rem;
-  color: #7c3aed;
+  color: #eb7a36;
   font-weight: 600;
   margin-bottom: 0.75rem;
   display: flex;
@@ -276,14 +276,14 @@
 .product-price {
   font-size: 1.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #7c3aed, #fb923c);
+  background: linear-gradient(135deg, #eb7a36, #a34a1a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .add-to-cart-btn {
-  background: linear-gradient(135deg, #7c3aed, #fb923c);
+  background: linear-gradient(135deg, #eb7a36, #a34a1a);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -294,12 +294,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 12px rgba(235, 122, 54, 0.3);
 }
 
 .add-to-cart-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 6px 20px rgba(235, 122, 54, 0.4);
 }
 
 .add-to-cart-btn:active {

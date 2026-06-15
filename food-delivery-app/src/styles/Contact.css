@@ -1,6 +1,6 @@
 .contact-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fff7ed 0%, rgba(251, 146, 60, 0.05) 50%, rgba(124, 58, 237, 0.05) 100%);
+  background: linear-gradient(135deg, #fff5eb 0%, rgba(235, 122, 54, 0.05) 50%, rgba(163, 74, 26, 0.05) 100%);
   padding: 3rem 1.5rem;
   font-family: Inter, system-ui, -apple-system, sans-serif;
 }
@@ -14,7 +14,7 @@
 .contact-title {
   font-size: 3rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #7c3aed, #fb923c);
+  background: linear-gradient(135deg, #eb7a36, #a34a1a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -59,14 +59,14 @@
 .info-icon {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, #7c3aed, #fb923c);
+  background: linear-gradient(135deg, #eb7a36, #a34a1a);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   margin-bottom: 1rem;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 12px rgba(235, 122, 54, 0.3);
 }
 
 .info-card h3 {
@@ -123,8 +123,8 @@
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+  border-color: #eb7a36;
+  box-shadow: 0 0 0 4px rgba(235, 122, 54, 0.1);
   background: white;
 }
 
@@ -134,7 +134,7 @@
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #7c3aed, #fb923c);
+  background: linear-gradient(135deg, #eb7a36, #a34a1a);
   color: white;
   padding: 1rem 2rem;
   border: none;
@@ -143,7 +143,7 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(235, 122, 54, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,7 +153,7 @@
 
 .submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 35px -5px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 15px 35px -5px rgba(235, 122, 54, 0.5);
 }
 
 .success-message {
@@ -186,7 +186,7 @@
 }
 
 .success-message strong {
-  color: #7c3aed;
+  color: #eb7a36;
   font-weight: 600;
 }
 

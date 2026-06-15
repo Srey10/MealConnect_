@@ -1,11 +1,11 @@
 /* Partners page styles - responsive, clean layout */
 
 :root{
-	--accent:#ff6b6b;
+	--accent:#eb7a36;
 	--muted:#6b7280;
-	--bg:#ffffff;
-	--card:#fbfbfd;
-	--max-width:1100px;
+	--bg:#fff5eb;
+	--card:#ffffff;
+	--max-width:100%;
 }
 
 .partners-container{
@@ -17,7 +17,7 @@
 
 /* Header reuse */
 .header{background:transparent;padding:18px 24px;border-bottom:1px solid rgba(15,23,42,0.04)}
-.header-container{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.header-container{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
 .logo-section{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
 .logo-icon{font-size:24px}
 .logo-text{font-weight:700}
