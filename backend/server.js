@@ -25,7 +25,8 @@ connectDB();
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://mealconnect-ngo.onrender.com'
+  'https://mealconnect-ngo.onrender.com',
+  'https://mealconnect-ngoconnect.onrender.com'
 ];
 
 // Apply CORS to all routes
